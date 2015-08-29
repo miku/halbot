@@ -21,9 +21,9 @@ import (
 )
 
 const (
-	AppVersion = "0.1.0"
+	AppVersion       = "0.1.0"
 	MaxMessageLength = 400
-	)
+)
 
 type Document struct {
 	Title    string `json:"title"`

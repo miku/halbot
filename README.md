@@ -12,7 +12,7 @@ Install
 Add solr aliases
 ----------------
 
-Specify SOLR urls in a [`$HOME/.parrotrc`](https://github.com/miku/halbot/blob/master/.parrotrc).
+Specify SOLR urls in a [`$HOME/.halrc`](https://github.com/miku/halbot/blob/master/.halrc).
 
 
 Start server

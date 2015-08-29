@@ -115,7 +115,7 @@ func run() int {
 	if err != nil {
 		log.Fatal(err)
 	}
-	config := path.Join(usr.HomeDir, ".parrotrc")
+	config := path.Join(usr.HomeDir, ".halrc")
 	if _, err := os.Stat(config); err == nil {
 		file, err := ini.LoadFile(config)
 		if err != nil {

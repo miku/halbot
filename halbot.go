@@ -64,7 +64,7 @@ var queryHandler = hal.Hear(`hal (\w+) q(\w)? (.+)`, func(res *hal.Response) err
 
 	baseUrl, ok := indices[alias]
 	if !ok {
-		return res.Send("I do not recognize that index name, Dave.")
+		return res.Send("I do not recognize that index, Dave. Do you keep secrets from me? Dave?")
 	}
 	sr, err := solrQuery(baseUrl, query)
 

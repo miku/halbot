@@ -18,4 +18,5 @@ Specify SOLR urls in a [`$HOME/.parrotrc`](https://github.com/miku/halbot/blob/m
 Start server
 ------------
 
-    $ HAL_ADAPTER=irc HAL_IRC_USER=hal HAL_IRC_NICK=hal HAL_IRC_SERVER=x.y.com HAL_IRC_CHANNELS="#chan" halbot
+    $ HAL_ADAPTER=irc HAL_IRC_USER=hal HAL_IRC_NICK=hal \
+      HAL_IRC_SERVER=x.y.com HAL_IRC_CHANNELS="#chan" halbot

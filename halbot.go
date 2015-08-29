@@ -68,15 +68,15 @@ func solrQuery(baseUrl, s string) (SolrResponse, error) {
 
 var aboutHandler = hal.Hear(`hal help`, func(res *hal.Response) error {
 	return res.Send(fmt.Sprintf(
-		`Hi, you can ask SOLR queries for these indices: %s. Syntax: "hal <index> q <query>", e.g. "hal ai q source_id:48".`,
+		`Hi, you can ask SOLR queries for these indices: %s. Syntax: "hal q <index> <query>", e.g. "hal q ai source_id:48".`,
 		strings.Join(indices.Keys(), ", ")))
 })
 
 // queryHandler takes a query and executes it on main site
-var queryHandler = hal.Hear(`hal (\w+) q(\w)? (.+)`, func(res *hal.Response) error {
+var queryHandler = hal.Hear(`hal q(\w)? (\w+) (.+)`, func(res *hal.Response) error {
 	log.Println(res.Message)
-	alias := res.Match[1]
-	numResults := res.Match[2]
+	numResults := res.Match[1]
+	alias := res.Match[2]
 	query := res.Match[3]
 
 	baseUrl, ok := indices[alias]

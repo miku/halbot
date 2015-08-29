@@ -34,8 +34,18 @@ type SolrResponse struct {
 	} `json:"response"`
 }
 
+type StringMap map[string]string
+
 // indices contain alias and index url
-var indices = make(map[string]string)
+var indices = make(StringMap)
+
+func (m StringMap) Keys() []string {
+	keys := make([]string, 0, len(m))
+	for k := range m {
+		keys = append(keys, k)
+	}
+	return keys
+}
 
 func solrQuery(baseUrl, s string) (SolrResponse, error) {
 	vals := url.Values{}
@@ -55,6 +65,12 @@ func solrQuery(baseUrl, s string) (SolrResponse, error) {
 	}
 	return sr, nil
 }
+
+var aboutHandler = hal.Hear(`hal`, func(res *hal.Response) error {
+	return res.Send(fmt.Sprintf(
+		`Hi, you can ask SOLR queries for these indices: %s, the syntax is "hal <index> q <query>", e.g. "hal ai q source_id:48".`,
+		strings.Join(indices.Keys(), ", ")))
+})
 
 // queryHandler takes a query and executes it on main site
 var queryHandler = hal.Hear(`hal (\w+) q(\w)? (.+)`, func(res *hal.Response) error {
@@ -136,6 +152,7 @@ func run() int {
 	robot.Handle(
 		pingHandler,
 		queryHandler,
+		aboutHandler,
 	)
 
 	if err := robot.Run(); err != nil {

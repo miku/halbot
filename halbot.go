@@ -74,6 +74,7 @@ var aboutHandler = hal.Hear(`hal help`, func(res *hal.Response) error {
 
 // queryHandler takes a query and executes it on main site
 var queryHandler = hal.Hear(`hal (\w+) q(\w)? (.+)`, func(res *hal.Response) error {
+	log.Println(res.Message)
 	alias := res.Match[1]
 	numResults := res.Match[2]
 	query := res.Match[3]

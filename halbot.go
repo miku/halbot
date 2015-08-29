@@ -20,6 +20,8 @@ import (
 	"github.com/vaughan0/go-ini"
 )
 
+const AppVersion = "0.1.0"
+
 type Document struct {
 	Title    string `json:"title"`
 	SourceID string `json:"source_id"`
@@ -108,6 +110,7 @@ var pingHandler = hal.Hear(`ping`, func(res *hal.Response) error {
 })
 
 func run() int {
+	log.Printf("Starting halbot %s", AppVersion)
 	usr, err := user.Current()
 	if err != nil {
 		log.Fatal(err)

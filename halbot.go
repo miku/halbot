@@ -66,7 +66,7 @@ func solrQuery(baseUrl, s string) (SolrResponse, error) {
 	return sr, nil
 }
 
-var aboutHandler = hal.Hear(`hal`, func(res *hal.Response) error {
+var aboutHandler = hal.Hear(`hal help`, func(res *hal.Response) error {
 	return res.Send(fmt.Sprintf(
 		`Hi, you can ask SOLR queries for these indices: %s. Syntax: "hal <index> q <query>", e.g. "hal ai q source_id:48".`,
 		strings.Join(indices.Keys(), ", ")))

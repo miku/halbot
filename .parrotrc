@@ -1,0 +1,5 @@
+[solr]
+
+ai = https://xx.xx.xxx-xxxxxxx.xx/solr/biblio
+finc = http://x.x.x.x:8080/solr/biblio
+

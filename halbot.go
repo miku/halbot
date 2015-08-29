@@ -20,7 +20,10 @@ import (
 	"github.com/vaughan0/go-ini"
 )
 
-const AppVersion = "0.1.0"
+const (
+	AppVersion = "0.1.0"
+	MaxMessageLength = 400
+	)
 
 type Document struct {
 	Title    string `json:"title"`
@@ -119,7 +122,11 @@ var queryHandler = hal.Hear(`hal q(\w)? (\w+) (.+)`, func(res *hal.Response) err
 		buf.WriteString(strings.Join(items, ", "))
 	}
 
-	return res.Send(buf.String())
+	msg := buf.String()
+	if len(msg) > MaxMessageLength {
+		msg = msg[:300]
+	}
+	return res.Send(msg)
 })
 
 var pingHandler = hal.Hear(`ping`, func(res *hal.Response) error {

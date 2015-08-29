@@ -24,13 +24,17 @@ Start server
 Query
 -----
 
-Query syntax is `hal <alias> q <query>`, e.g.
+General syntax is `hal <command> ...`.
 
-    [16:01] <        human> | hal ai q "Roboterarmee"
+There is only one command now: `q` for query.
+
+Query syntax is `hal q <alias> <query>`, e.g.
+
+    [16:01] <        human> | hal q ai "Roboterarmee"
     [16:01] < hal> 7 in ai for "Roboterarmee"
 
 The first titles can be queries with:
 
-    [16:02] <        human> | hal ai qq "Roboterarmee"
+    [16:02] <        human> | hal qq ai "Roboterarmee"
     [16:02] < hal> 7 in ai for "Roboterarmee" -- (1) Amazon startet Roboter-Armee [48],
                    (2) Ballzauberer gegen das Böse [48], (3) TERMINATOR 3

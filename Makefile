@@ -1,4 +1,4 @@
-halbot:
+halbot: halbot.go
 	go build -o halbot halbot.go
 
 clean:

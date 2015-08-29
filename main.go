@@ -55,7 +55,7 @@ func solrQuery(baseUrl, s string) (SolrResponse, error) {
 }
 
 // queryHandler takes a query and executes it on main site
-var queryHandler = hal.Hear(`hal (\w+) q(\d)? (.+)`, func(res *hal.Response) error {
+var queryHandler = hal.Hear(`hal (\w+) q(\w)? (.+)`, func(res *hal.Response) error {
 	alias := res.Match[1]
 	numResults := res.Match[2]
 	query := res.Match[3]
@@ -73,21 +73,30 @@ var queryHandler = hal.Hear(`hal (\w+) q(\d)? (.+)`, func(res *hal.Response) err
 	buf.WriteString(fmt.Sprintf("%d in %s for %s", sr.Response.NumFound, alias, query))
 
 	if numResults != "" {
-		size, err := strconv.Atoi(numResults)
-		if err != nil {
-			return err
-		}
-		if size > len(sr.Response.Docs) {
+		var size int
+
+		if numResults == "q" {
 			size = len(sr.Response.Docs)
+		} else {
+			size, err = strconv.Atoi(numResults)
+			if err != nil {
+				return err
+			}
+			if size > len(sr.Response.Docs) {
+				size = len(sr.Response.Docs)
+			}
 		}
+
 		if size > 0 {
 			buf.WriteString(" -- ")
 		}
+
 		var items []string
 		for i := 0; i < size; i++ {
 			doc := sr.Response.Docs[i]
 			items = append(items, fmt.Sprintf("(%d) %s [%s]", i+1, doc.Title, doc.SourceID))
 		}
+
 		buf.WriteString(strings.Join(items, ", "))
 	}
 
